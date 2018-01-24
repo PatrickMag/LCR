@@ -1,0 +1,17 @@
+' Gambas module file
+
+PUBLIC FUNCTION Chk(sProg AS String) AS Boolean
+
+  DIM sTemp AS String
+  DIM bProg AS String
+
+  sTemp = User.home & "/temp_prog"
+  SHELL "which " & sProg & " > " & sTemp WAIT
+  bProg = Trim(File.Load(sTemp))
+  KILL sTemp
+  IF IsNull(bProg) THEN
+    RETURN FALSE
+  ELSE
+    RETURN TRUE
+  ENDIF
+END

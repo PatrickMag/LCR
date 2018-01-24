@@ -1,0 +1,82 @@
+' Gambas module file
+
+Public Soc As String
+Public VersionT As String
+Public son As Integer = Start.Son
+Public Musique As String = "son/warning.ogg"
+Public R As Integer = 255
+Public G As Integer = 254
+Public B As Integer = 242
+Public R2 As Integer
+Public G2 As Integer
+Public B2 As Integer
+Private Lig2 As String[]
+Private Fontes As String
+Private hpb As ProgressBar
+
+Public Sub Main()
+
+  Try Soc = Settings["/Soc"]
+  Try Son = Settings["/son"]
+  Music.Load(Musique)
+  Try VersionT = Left$(Settings["/dbase/Version"], 7)
+  Application.Font = Font["Serif,11"]
+  Try Fontes = "Serif,+1"
+  If IsNull(fontes) Then
+    Application.Font = Font["Serif,11"]
+  Else
+    Application.Font = Font[Fontes]
+  Endif
+  Coul()
+  If Exist(User.home & "/Lcr.lock") Then
+    If son Then
+      Music.Play
+    Endif
+    If Message.Warning(("Il semblerait que Lcr soit déjà ouvert ou qu'il a été fermé anormalement.\n\nOuvrir deux fois Lcr peut causer des dysfonctionnements\net utiliser un programme qui n'a pas été fermé normalement \nsignifie que la base n'est peut-être pas à jour et que vous devriez faire une restauration."), ("Ouvrir"), ("Ne pas ouvrir")) = 1 Then
+      Try Kill User.home & "/Lcr.lock"
+      File.Save(User.home & "/Lcr.lock", "")
+      FLcr.ShowModal
+    Else
+      Try Kill User.home & "/Lcr.lock"
+    Endif
+  Else
+    File.Save(User.home & "/Lcr.lock", "")
+    FLcr.ShowModal
+  Endif
+
+End
+
+Public Sub Coul()
+
+  Dim Fonds As String
+
+  Try Fonds = Settings["/Coul/Others"]
+  If Not Error Then
+    If Not IsNull(Fonds) Then
+      lig2 = Split(Fonds, ";")
+      Try R = Lig2[0]
+      Try G = Lig2[1]
+      Try B = Lig2[2]
+      If Error Then
+        R2 = 229
+        G2 = 233
+        B2 = 255
+      Endif
+    Endif
+  Endif
+  Try Fonds = Settings["/Coul/Coulfonds"]
+  If Not Error Then
+    If Not IsNull(Fonds) Then
+      lig2 = Split(Fonds, ";")
+      Try R2 = Lig2[0]
+      Try G2 = lig2[1]
+      Try B2 = lig2[2]
+      If Error Then
+        R2 = 255
+        G2 = 254
+        B2 = 212
+      Endif
+    Endif
+  Endif
+
+End

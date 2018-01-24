@@ -1,0 +1,320 @@
+' Gambas class file
+
+CoTable[5] As String
+Dbl As Boolean = False
+sel As String
+CoulFc As Integer ' Variable pour la couleur du focus
+Private NbEnreg As Integer = 0 ' Enregistrement de départ de la sélection
+Private Tri As String
+Private Type As String
+Private nb As Integer = 19
+
+'************************************** Gestion des comptes comptables *****************************************************
+Public Sub _new(sTri As String, sType As String, deb As String)
+  
+  Dim Frmt As New String[]
+  
+  Frmt = Utils.FColr(Settings["/Coul/Focus"])
+  If Settings["/Soc" & Start.Soc & "/Coul_fen"] = 0 Then
+    Coulfc = Val(Frmt[0])
+  Else
+    Coulfc = &HAAFF7F&
+  Endif
+  Tri = sTri
+  Type = sType
+  Tris()
+  Select Case deb
+    Case "D4"
+      Deb4()
+  End Select
+  Colco.MoveTo(0, 0)
+  Colco.Current.EnsureVisible
+  Colco.SetFocus
+  
+End
+
+Public Sub Colco_MouseWheel()
+  
+  If mouse.Delta = -1 Then
+    NbEnreg = NbEnreg + 19
+  Else
+    NbEnreg = NbEnreg - 19
+  Endif
+  If NbEnreg < 0 Then NbEnreg = 0
+  If Not Dbl Then
+    Deb4()
+  Else
+    Deb5()
+  Endif
+  Try Colco.MoveTo(0, 0)
+  Try Colco.Current.EnsureVisible
+  
+End
+
+Public Sub colco_KeyPress()
+  
+  If Key.code = Key.Enter Or Key.code = Key.Return Then
+    Colco_Click()
+  Endif
+  
+  If Key.code = Key.Escape Or Key.code = Key.F2 Then
+    Me.Close
+  Endif
+  
+End
+
+Public Sub colco_Click()
+  
+  Lcr.Bsel = True
+  Try Lcr.sCmpt = colco[colco.row, 0].Text
+  Try Lcr.sDesg = colco[colco.row, 1].Text
+  Me.close
+  
+End
+
+Public Sub Colco_Data(Row As Integer, Column As Integer)
+  
+  Dim CoulB As Integer
+  Dim CoulF As Integer
+  Dim Fnt As String
+  
+  With Utils
+    CoTable[0] = "compte_cc"
+    CoTable[1] = "intitule_cc"
+    CoTable[2] = "type_cc"
+    CoTable[3] = "solde"
+    CoTable[4] = "coll_cc"
+    .rs2.MoveTo(Row)
+    Try Colco.data.Text = Str(.rs2[CoTable[Column]])
+    If Not Error Then
+      If Settings["/Soc" & Start.Soc & "/Coul_fen"] = 0 Then
+        CoulB = Val("&HFAFAFA&")
+      Else
+        CoulB = Val("&HF9F9BD&")
+      Endif
+      CoulF = Val("&H000000&")
+      Fnt = "serif 10"
+    Endif
+    If column = 3 Then
+      Colco.data.Text = Format$(Val(.cpoint(Colco.data.Text)), "0.00")
+      Colco.Data.Alignment = 2
+    Endif
+    Colco.Data.Background = CoulB
+    Colco.Data.Foreground = CoulF
+    'Colco.Data.Font = Font[Fnt]
+    
+  End With
+  
+End
+
+Public Sub Tris()
+  
+  With Colco
+    .Columns.count = 4
+    .Columns[0].Width = CO.Width
+    .Columns[1].Width = Intit.Width
+    Try .Columns[2].Width = Ty.Width
+    Try .Columns[3].Width = Sol.Width
+  End With
+  
+End
+
+Public Sub Co_GotFocus()
+  
+  Co.Background = Coulfc
+  Co_Click()
+  
+End
+
+Public Sub Co_LostFocus()
+  
+  Utils.ObsLstf(CO)
+  
+End
+
+Public Sub Intit_GotFocus()
+  
+  Intit.Background = Coulfc
+  Intit_Click()
+  
+End
+
+Public Sub Intit_LostFocus()
+  
+  Utils.ObsLstf(Intit)
+  
+End
+
+Public Sub Co_Click()
+  
+  sel = ""
+  Dbl = ""
+  Co.Text = ""
+  Intit.Text = "Intitulé"
+  Tri = "cast(compte_cc AS char)"
+  NbEnreg = 0
+  Dbl = ""
+  Deb4()
+  
+End
+
+Public Sub Co_Dblclick()
+  
+  sel = ""
+  Co.Text = ""
+  Intit.Text = "Intitulé"
+  Tri = "cast(compte_cc AS char)"
+  NbEnreg = 0
+  Dbl = ""
+  Dbclk()
+  
+End
+
+Public Sub Co_KeyPress()
+  
+  If InStr("\"&'", Key.Text) = 0 Then
+    sel = utils.Obstch(sel)
+    Deb4()
+  Endif
+  If key.code = key.Esc Or Key.code = key.f2 Then
+    Me.close
+  Endif
+  If key.Code = key.F1 Then Visdoc.Web(Application.Path &/ "Ecrans/Lettrage.html")
+  
+End
+
+Public Sub Intit_Click()
+  
+  sel = ""
+  Dbl = ""
+  Co.Text = "Code"
+  Intit.Text = ""
+  Tri = "intitule_cc"
+  NbEnreg = 0
+  Dbl = ""
+  Deb4()
+  
+End
+
+Public Sub Intit_Dblclick()
+  
+  sel = ""
+  Co.Text = "Code"
+  Intit.Text = ""
+  Tri = "intitule_cc"
+  NbEnreg = 0
+  Dbl = ""
+  Dbclk()
+  
+End
+
+Public Sub Intit_KeyPress()
+  
+  If InStr("\"&'", Key.Text) = 0 Then
+    sel = utils.Obstch(sel)
+    Deb4()
+  Endif
+  If key.code = key.Esc Or Key.code = key.f2 Then
+    Me.close
+  Endif
+  If key.Code = key.F1 Then Visdoc.Web(Application.Path &/ "Ecrans/Lettrage.html")
+Catch
+  
+End
+
+Public Sub Dbclk()
+  
+  If Not Dbl Then
+    Deb5()
+    Dbl = "1"
+  Else
+    Deb4()
+    Dbl = ""
+  Endif
+  
+End
+
+Public Sub Ref()
+  
+  Tri = "cast(compte_cc AS char)"
+  Tris()
+  
+End
+
+Public Sub Deb2()
+  
+  Utils.Base2(Colco, "select * from " & Cbase.Table("TabComptes") & " where " & Tri & " like  \"" & sel & "%\" order by " & Tri & "")
+  
+End
+
+Public Sub Deb3()
+  
+  Utils.Base2(Colco, "select * from " & Cbase.Table("TabComptes") & " where " & Tri & " like  \"" & sel & "%\" order by " & Tri & " Desc")
+  
+End
+
+Public Sub Deb4()
+  
+  If Type <> "B" Then
+    Utils.Base2(Colco, "SELECT * FROM " & Cbase.Table("TabComptes") & " WHERE " & Tri & " like  \"" & sel & "%\" and type_cc like  \"" & Type & "%\"  and coll <> " & 1 & " order by " & Tri & "  limit " & NbEnreg & ", " & nb & "")
+  Else
+    Utils.Base2(Colco, "SELECT * FROM " & Cbase.Table("TabComptes") & " WHERE " & Tri & " like  \"" & sel & "%\" and type_cc like  \"" & Type & "%\"  order by " & Tri & " limit " & NbEnreg & ", " & nb & "")
+  Endif
+  
+End
+
+Public Sub Deb5()
+  
+  If Type <> "B" Then
+    Utils.Base2(Colco, "SELECT * FROM " & Cbase.Table("TabComptes") & " WHERE " & Tri & " like  \"" & sel & "%\" and type_cc like  \"" & Type & "%\" and coll <> " & 1 & " order by " & Tri & " Desc limit " & NbEnreg & ", " & nb & "")
+  Else
+    Utils.Base2(Colco, "SELECT * FROM " & Cbase.Table("TabComptes") & " WHERE " & Tri & " like  \"" & sel & "%\" and type_cc like  \"" & Type & "%\" order by " & Tri & " Desc limit " & NbEnreg & ", " & nb & "")
+  Endif
+  
+End
+
+Public Sub Deb6()
+  
+  If Type <> "B" Then
+    '  Utils.Base2(Colco, "SELECT * FROM " & Cbase.Table("TabComptes") & " WHERE " & Tri & " like  \"" & sel & "%\" and type_cc like  \"" & Type & "%\" and coll <> " & 1 & " or " & Tri & " like  \"" & sel & "%\" and type_cc like  \"" & Type2 & "%\" and coll <> " & 1 & " order by " & Tri & "")
+  Else
+    '  Utils.Base2(Colco, "SELECT * FROM " & Cbase.Table("TabComptes") & " WHERE " & Tri & " like  \"" & sel & "%\" and type_cc like  \"" & Type & "%\" and coll <> " & 1 & " or " & Tri & " like  \"" & sel & "%\" and type_cc like  \"" & Type2 & "%\" order by " & Tri & "")
+  Endif
+  
+End
+
+Public Sub Deb7()
+  
+  If Type <> "B" Then
+    '  Utils.Base2(Colco, "SELECT * FROM " & Cbase.Table("TabComptes") & " WHERE " & Tri & " like  \"" & sel & "%\" and type_cc like  \"" & Type & "%\" and coll <> " & 1 & " or " & Tri & " like  \"" & sel & "%\" and type_cc like  \"" & Type2 & "%\" and coll <> " & 1 & " order by " & Tri & " Desc")
+  Else
+    '  Utils.Base2(Colco, "SELECT * FROM " & Cbase.Table("TabComptes") & " WHERE " & Tri & " like  \"" & sel & "%\" and type_cc like  \"" & Type & "%\" and coll <> " & 1 & " or " & Tri & " like  \"" & sel & "%\" and type_cc like  \"" & Type2 & "%\" order by " & Tri & " Desc")
+  Endif
+  
+End
+
+'Pour un journal de trésorerie on ne récupère pas les comptes banque
+
+Public Sub Deb8()
+  
+  If Type <> "B" Then
+    Utils.Base2(Colco, "SELECT * FROM " & Cbase.Table("TabComptes") & " WHERE " & Tri & " like  \"" & sel & "%\" and type_cc like  \"" & Type & "%\"  and coll <> " & 1 & " order by " & Tri & " limit " & NbEnreg & ", " & nb & "")
+  Else
+    Utils.Base2(Colco, "SELECT * FROM " & Cbase.Table("TabComptes") & " WHERE " & Tri & " like  \"" & sel & "%\" and type_cc like  \"" & Type & "%\"  and comptr_cc = " & 0 & " order by " & Tri & " limit " & NbEnreg & ", " & nb & "")
+  Endif
+  
+End
+
+Public Sub Deb9()
+  
+  If Type <> "B" Then
+    Utils.Base2(Colco, "SELECT * FROM " & Cbase.Table("TabComptes") & " WHERE " & Tri & " like  \"" & sel & "%\" and type_cc like  \"" & Type & "%\" and coll <> " & 1 & " order by " & Tri & " Desc limit " & NbEnreg & ", " & nb & "")
+  Else
+    Utils.Base2(Colco, "SELECT * FROM " & Cbase.Table("TabComptes") & " WHERE " & Tri & " like  \"" & sel & "%\" and type_cc like  \"" & Type & "%\" and comptr_cc = " & 0 & " order by " & Tri & " Desc limit " & NbEnreg & ", " & nb & "")
+  Endif
+  
+End
+
+Public Sub Panel1_MouseDown()
+  
+End

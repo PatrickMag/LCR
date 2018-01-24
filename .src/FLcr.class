@@ -1,0 +1,98 @@
+' Gambas class file
+
+Public Soc As String
+Public IntSoc As String
+
+Public Sub _New()
+
+  Me.Center
+
+End
+
+Public Sub form_Open()
+
+  Utils.glb()
+  Try Utils.db.Open
+  If Error Then
+    LcrConf.ShowModal()
+  Endif
+ Try Utils.db.exec("SET NAMES 'latin1'")
+  soc = Settings["/Lcr/Soc/"]
+  IntSoc = Settings["/Lcr/intitule"]
+  FLcr.text = "Laurux.LCR " & " ( Société  " " " & Right$(FLcr.Soc, 2) & " - " & FLcr.IntSoc & ") "
+  Button1.SetFocus
+
+End
+
+Public Sub preferences()
+
+  Settings.Save
+  Settings.Reload
+
+End
+
+Public Sub Menu1_Click()
+
+  Fsoc.ShowModal()
+
+End
+
+Public Sub Menu3_Click()
+
+  Me.close
+
+End
+
+Public Sub Menu5_Click()
+
+  Fabout.ShowModal()
+
+End
+
+Public Sub Button1_Click()
+
+  Banque.ShowModal()
+
+End
+
+Public Sub Button1_KeyPress()
+
+  If Key.code = Key.F1 Then Visdoc.Web(Application.Path &/ "Docs/IndexLcr.html")
+
+End
+
+Public Sub Button2_Click()
+
+  Lcr.ShowModal()
+
+End
+
+Public Sub Button5_Click()
+
+  Attribution.ShowModal()
+
+End
+
+Public Sub Button4_Click()
+
+  Me.close
+
+End
+
+Public Sub Button7_Click()
+
+  Preparation.ShowModal()
+
+End
+
+Public Sub Button6_Click()
+
+  Bordereaux.ShowModal()
+
+End
+
+Public Sub Button3_Click()
+
+  Glcr.ShowModal()
+
+End

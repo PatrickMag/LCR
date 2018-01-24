@@ -1,0 +1,22 @@
+# Gambas Project File 3.0
+# Compiled with Gambas 3.10.0
+Title=Lcr magnétiques
+Startup=Start
+Version=1.0.1
+Component=gb.image
+Component=gb.qt4
+Component=gb.form
+Component=gb.compress
+Component=gb.crypt
+Component=gb.db
+Component=gb.settings
+Component=gb.form.mdi
+Component=gb.net
+Component=gb.net.smtp
+Component=gb.pcre
+Component=gb.qt4.ext
+Component=gb.sdl.sound
+Component=gb.web
+TabSize=2
+Language=fr
+Packager=1

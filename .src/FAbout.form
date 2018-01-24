@@ -1,0 +1,51 @@
+# Gambas Form File 3.0
+
+{ Form Form
+  MoveScaled(2,0,63,52)
+  Text = ("About Lcr")
+  Resizable = False
+  { Frame2 Frame
+    MoveScaled(1,1,60,19)
+    Background = &HFFB798&
+    { Label1 Label
+      MoveScaled(1,1,58,17)
+      Font = Font["Flubber,+10"]
+      Background = &HEE876A&
+      Foreground = &H3302A6&
+      Text = ("Lcr")
+      Alignment = Align.Center
+    }
+  }
+  { TextLabel3 TextLabel
+    MoveScaled(2,21,58,4)
+    Font = Font["Serif"]
+    Text = ("Lcr")
+    Alignment = Align.Center
+  }
+  { TextLabel5 TextLabel
+    MoveScaled(2,25,58,3)
+    Font = Font["Serif,Bold"]
+    Text = ("Version 1.00")
+    Alignment = Align.Center
+  }
+  { Button1 Button
+    MoveScaled(24,47,13,4)
+    Font = Font["Serif"]
+    Text = Shortcut(("OK"), "O")
+  }
+  { TextLabel7 TextLabel
+    MoveScaled(12,39,34,4)
+    Font = Font["Serif"]
+    Text = ("Contact : info@althae.fr")
+    Alignment = Align.Center
+  }
+  { PictureBox1 PictureBox
+    MoveScaled(1,34,11,9)
+    Picture = Picture["Icones/Larus.png"]
+  }
+  { Label2 Label
+    MoveScaled(1,28,59,5)
+    Text = ("Distribué sous la licence GNU GPL3\n(c) 2015 Jacky Tripoteau")
+    Alignment = Align.Center
+  }
+}

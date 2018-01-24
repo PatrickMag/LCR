@@ -1,0 +1,14 @@
+' Gambas class file
+
+PUBLIC SUB _New()
+
+  ME.center
+
+END
+
+PUBLIC SUB Button1_Click()
+
+  ME.Close()
+  
+END
+

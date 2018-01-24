@@ -1,0 +1,49 @@
+# Gambas Form File 3.0
+
+{ Form Form
+  MoveScaled(47.1429,11,80,63)
+  Background = Color.Background
+  Text = ("Table des sociétés")
+  Resizable = False
+  { Soclist ColumnView
+    MoveScaled(2,6,76,34)
+    Font = Font["Serif,-1"]
+    Background = Color.TextBackground
+    ScrollBar = Scroll.Vertical
+  }
+  { HBox1 HBox
+    MoveScaled(13,55,52,4)
+    Spacing = True
+    { Button1 Button
+      MoveScaled(1,0,4,4)
+      Background = Color.ButtonBackground
+      ToolTip = ("Doc HTML")
+      Picture = Picture["Icones/khelp.png"]
+    }
+    { Button2 Button
+      MoveScaled(14,0,14.1429,4)
+      Font = Font["Serif,Bold"]
+      Background = Color.ButtonBackground
+      Text = Shortcut(("Utiliser"), "U")
+      Picture = Picture["Icones/charset.png"]
+    }
+    { Button3 Button
+      MoveScaled(35,0,13.1429,4)
+      Font = Font["Serif,Bold"]
+      Background = Color.ButtonBackground
+      Text = Shortcut(("Quitter"), "Q")
+      Picture = Picture["Icones/exit.png"]
+    }
+  }
+  { ComboBox1 ComboBox
+    MoveScaled(29,43,33,4)
+    Font = Font["-1"]
+    ToolTip = ("Le gestionnaire de courriel qui sera lancé pour l'envoi des bordereaux")
+    List = [("Thunderbird"), ("Icedove"), ("Evolution"), ("Kmail")]
+  }
+  { TextLabel1 TextLabel
+    MoveScaled(4,43,25,4)
+    Text = ("Gestionnaire de courriel")
+    Alignment = Align.Left
+  }
+}

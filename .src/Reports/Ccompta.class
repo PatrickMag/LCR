@@ -1,0 +1,131 @@
+' Gambas class file
+
+Inherits PdfWriter
+R As Integer
+G As Integer
+B As Integer
+
+Public Sub _new()
+  
+  R = Start.R
+  G = Start.G
+  B = Start.B
+  
+End
+
+Public Sub _free()
+  
+End
+
+Public Sub Entete(sEntete As String)
+  
+  Me.AddPage
+  Me.SetXY(4, 5)
+  Me.SetFont("Helvetica", "BI", 16)
+  Me.SetFillColor(R, G, B)
+  Me.cell(200, 8, sEntete, True, 0, "C", True)
+  
+End
+
+'Page footer
+Public Function BasPage()
+  
+  Me.SetY(-10)
+  Me.SetFont("Helvetica", "I", 8)
+  Me.SetFillColor(R, G, B)
+  Me.Cell(190, 6, "Page " & Me.PageNo() & "/{nb}" & " - " & Format$(Date(Now), "dd/mm/yyyy") & " - Impression demandée par " & User.Name, False, 0, "C", False)
+  
+End
+
+'Page footer
+Public Function BasPage2(ipage As String)
+  
+  Me.SetY(-10)
+  Me.SetFont("Helvetica", "I", 8)
+  Me.SetFillColor(R, G, B)
+  Me.Cell(190, 6, "Page N° " & ipage & " - " & Format$(Date(Now), "dd/mm/yyyy") & " - Impression demandée par " & User.Name, False, 0, "C", False)
+  
+End
+
+'Lignes continues
+Public Sub Lines(PosY As String)
+  
+  Me.SetXY(7, PosY)
+  Me.SetLineWidth(0.1)
+  Me.Line(0, PosY, 280, PosY)
+  
+End
+
+' ****************************** Impression des traites *****************************************
+'Entete
+Public Sub Level1T(Posy As Integer)
+  
+  Me.SetXY(4, Posy)
+  Me.SetFont("Helvetica", "", 8)
+  Me.cell(10, 5, "Cd Ets", True, 0, "C", True)
+  Me.cell(11, 5, "Guichet", True, 0, "C", True)
+  Me.cell(20, 5, "Numéro", True, 0, "C", True)
+  Me.cell(10, 5, "Rib", True, 0, "C", True)
+  Me.cell(50, 5, "Domiciliation", True, 0, "C", True)
+  Me.cell(50, 5, "Nom", True, 0, "C", True)
+  Me.cell(16, 5, "Date", True, 0, "C", True)
+  Me.cell(16, 5, "Date ech.", True, 0, "C", True)
+  Me.cell(16, 5, "Montant", True, 0, "C", True)
+  
+End
+
+'détail
+Public Sub Level2T(setb As String, sguichet As String, snum As String, srib As String, sdom As String, snom As String, sadr1 As String, sadr2 As String, scp As String, sdate As String, sdatech As String, smontant As String, numfac As String, Posy As Integer)
+  
+  Me.SetXY(4, Posy)
+  Me.SetFont("Helvetica", "", 8)
+  Me.cell(10, 5, setb, False, 0, "L", False)
+  Me.cell(11, 5, sguichet, False, 0, "L", False)
+  Me.cell(20, 5, snum, False, 0, "L", False)
+  Me.cell(10, 5, srib, False, 0, "L", False)
+  Me.cell(50, 5, sdom, False, 0, "L", False)
+  Me.cell(50, 5, "N° facture " & NumFac, False, 0, "L", False)
+  Me.cell(16, 5, sdate, False, 0, "L", False)
+  Me.cell(16, 5, sdatech, False, 0, "L", False)
+  Me.cell(16, 5, smontant, False, 0, "R", False)
+  Posy += 5
+  Me.SetXY(105, PosY)
+  Me.cell(60, 5, snom, False, 0, "L", False)
+  Posy += 5
+  Me.SetXY(105, PosY)
+  If Not IsNull(sadr1) And If sadr1 <> " " Then
+    Me.cell(60, 5, sadr1, False, 0, "L", False)
+    Posy += 5
+  Endif
+  Me.SetXY(105, PosY)
+  If Not IsNull(sadr2) And If sadr2 <> " " Then
+    Me.cell(60, 5, sadr2, False, 0, "L", False)
+    Posy += 5
+  Endif
+  Me.SetXY(105, PosY)
+  If Not IsNull(scp) And If scp <> " " Then 
+    Me.cell(60, 5, scp, False, 0, "L", False)
+    Posy += 5
+  Endif
+  Me.SetLineWidth(0.1)
+  Me.Line(0, PosY, 280, PosY)
+  
+End
+
+'total
+Public Sub Level3T(totnp As String, totp As String, totpnp As String, Posy As Integer)
+  
+  Me.SetXY(40, Posy)
+  Me.SetFont("Helvetica", "", 8)
+  Me.cell(60, 5, "Total traites ", False, 0, "L", False)
+  Me.cell(20, 5, totnp & " ", True, 0, "R", True)
+  posy += 5
+  Me.SetXY(40, Posy)
+  Me.cell(60, 5, "Total écritures pointées ", False, 0, "L", False)
+  Me.cell(20, 5, totp & " ", True, 0, "R", True)
+  posy += 5
+  Me.SetXY(40, Posy)
+  Me.cell(60, 5, "Total écritures pointées et non pointées ", False, 0, "L", False)
+  Me.cell(20, 5, totpnp & " ", True, 0, "R", True)
+  
+End

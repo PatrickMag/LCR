@@ -1,0 +1,36 @@
+' Gambas module file
+
+Public Sub Envoi(Email As String, sujet As String, Corps As String, piece As String, piece2 As String)
+
+  If Not IsNull(Settings["/Soc" & Start.Soc & "/Prgmail"]) Then
+    Select Case Settings["/Soc" & Start.Soc & "/Prgmail"]
+      Case "Thunderbird"
+        corps = Replace$(corps, ",", "%2C")
+        corps = Replace$(corps, "\n", "%0A")
+        corps = Replace$(corps, "(", "{")
+        corps = Replace$(corps, ")", "}")
+        corps = Replace$(corps, "'", " ")
+        corps = Replace$(corps, ";", "%2C")
+        Shell "thunderbird -compose" & " \"" & "to=" & Email & ",subject=" & sujet & ",body=" & corps & ",attachment=" & "'" & piece & "," & piece2 & "'" & "\""
+
+      Case "Icedove"
+        corps = Replace$(corps, ",", "%2C")
+        corps = Replace$(corps, "\n", "%0A")
+        corps = Replace$(corps, "(", "{")
+        corps = Replace$(corps, ")", "}")
+        corps = Replace$(corps, "'", " ")
+        corps = Replace$(corps, ";", "%2C")
+        Shell "thunderbird -compose" & " \"" & "to=" & Email & ",subject=" & sujet & ",body=" & corps & ",attachment=" & "'" & piece & "," & piece2 & "'" & "\""
+
+      Case "Evolution"
+        Exec ["evolution", "mailto:" & Email & "?subject=" & sujet & "\\&body=" & corps & "\\&attach=" & piece & "," & piece2]
+
+      Case "Kmail"
+        Exec ["kmail -s " & sujet & "--attach " & piece & "--msg " & corps & " " & Email]
+
+    End Select
+  Else
+    Message.Warning("Le gestionnaire de messagerie n'est pas défini dans les préférences !")
+  Endif
+
+End

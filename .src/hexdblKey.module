@@ -1,0 +1,75 @@
+' Gambas module file
+' Gambas class file
+EXPORT
+' /***************************************************************************
+' 
+'  hexdblKey Class
+' 
+'  Gambas - obfuscation project
+' 
+' Copyright (C) 2009  Charlie Reinl <Karl(DOT)Reinl(DOT)fen-net.de>
+' 
+' This program is free software: you can redistribute it and/or modify
+' it under the terms of the GNU General Public License as published by
+' the Free Software Foundation, either version 3 of the License, or
+' (at your option) any later version.
+' 
+' This program is distributed in the hope that it will be useful,
+' but WITHOUT ANY WARRANTY; without even the implied warranty of
+' MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+' GNU General Public License for more details.
+' 
+' You should have received a copy of the GNU General Public License
+' along with this program.  If not, see <http://www.gnu.org/licenses/>.
+' ***************************************************************************/
+'
+' This from  Benoît's gambas-database-manager
+
+PUBLIC FUNCTION Crypt(sAction AS String, sStrInput AS String, sCryptKey AS String) AS String
+
+  sAction = Upper(Replace(Upper(sAction), Upper("crypt"), ""))
+  SELECT CASE Upper(sAction)
+    CASE Upper("de")
+      RETURN Crypting(FromHexaString(sStrInput), sCryptKey)
+    CASE Upper("en")
+      RETURN ToHexaString(Crypting(sStrInput, sCryptKey))
+  END SELECT
+CATCH
+
+END
+
+PRIVATE FUNCTION Crypting(sStr AS String, sCryptKey AS String) AS String
+
+  DIM iInd AS Integer
+  DIM iPos AS Integer
+  DIM sRes AS String
+
+  FOR iInd = 1 TO Len(sStr)
+    INC iPos
+    IF iPos > Len(sCryptKey) THEN iPos = 1
+    sRes = sRes & Chr$(Asc(sStr, iInd) XOR Asc(sCryptKey, iPos) XOR 13)
+  NEXT
+  RETURN sRes
+
+END
+
+PRIVATE FUNCTION ToHexaString(sStr AS String) AS String
+
+  DIM iInd AS Integer
+  DIM sRes AS String
+
+  FOR iInd = 1 TO Len(sStr)
+    sRes = sRes & Hex$(Asc(sStr, iInd), 2)
+  NEXT
+  RETURN sRes
+
+END
+
+PRIVATE FUNCTION FromHexaString(sStr AS String) AS String
+DIM iInd AS Integer
+DIM sRes AS String
+  FOR iInd = 1 TO Len(sStr) STEP 2
+    sRes = sRes & Chr$(Val("&H" & Mid$(sStr, iInd, 2)))
+  NEXT
+  RETURN sRes
+END

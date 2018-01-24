@@ -1,0 +1,53 @@
+# Gambas Form File 3.0
+
+{ Form Form
+  MoveScaled(0,0,81,59)
+  Border = False
+  { Panel1 Panel
+    MoveScaled(0,0,81,59)
+    Border = Border.Plain
+    { Colco GridView
+      MoveScaled(0,1,81,58)
+      Font = Font["Serif,-1"]
+      Background = Color.Background
+      Mode = Select.Single
+      Header = GridView.Horizontal
+    }
+    { HBox3 HBox
+      MoveScaled(0,0,84,4)
+      Font = Font["Serif"]
+      { CO TextBox
+        MoveScaled(0,0,13,3.4286)
+        Font = Font["Serif"]
+        Background = Color.Background
+        ToolTip = ("Un double clic sur la zone inverse l'ordre de tri.")
+        Text = ("Compte")
+        Alignment = Align.Center
+      }
+      { INTIT TextBox
+        MoveScaled(13,0,46,3.4286)
+        Font = Font["Serif"]
+        Background = Color.Background
+        ToolTip = ("Un double clic sur la zone inverse l'ordre de tri.")
+        Text = ("Intitulé")
+        Alignment = Align.Center
+      }
+      { Ty TextBox
+        MoveScaled(59,0,7.7143,3.4286)
+        Font = Font["Serif"]
+        Background = &HD4D0C8&
+        Text = ("Type")
+        Alignment = Align.Center
+        ReadOnly = True
+      }
+      { Sol TextBox
+        MoveScaled(67,0,14,3.4286)
+        Font = Font["Serif"]
+        Background = &HD4D0C8&
+        Text = ("Solde")
+        Alignment = Align.Center
+        ReadOnly = True
+      }
+    }
+  }
+}

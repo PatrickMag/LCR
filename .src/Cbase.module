@@ -1,0 +1,29 @@
+' Gambas module file
+
+'Table famille
+
+Public Function Table(Tab As String) As String
+
+  Select Case tab
+    Case "TabBanques"
+      Tab = "Fiches_Banques"
+
+    Case "TabTraites"
+      Tab = "Fiches_Traites"
+
+    Case "TabCli"
+      Tab = "Fiches_Cli"
+
+    Case "TabComptes"
+      Tab = "Fiches_Comptes"
+
+    Case "TabLcr"
+      Tab = "Fiches_Lcr"
+
+    Case "TabBordereaux"
+      Tab = "Fiches_Bordereaux"
+
+  End Select
+  Return Tab
+
+End

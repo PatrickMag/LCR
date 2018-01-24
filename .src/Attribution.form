@@ -1,0 +1,313 @@
+# Gambas Form File 3.0
+
+{ Form Form
+  MoveScaled(0,0,106,84)
+  Text = ("Attribution banques")
+  { Mt2 Label
+    MoveScaled(51,42,16,4)
+    Font = Font["Serif,Bold,Italic"]
+    Text = ("0,00")
+    Alignment = Align.Left
+  }
+  { Label3 Label
+    MoveScaled(33,42,17,4)
+    Font = Font["Serif,Bold,Italic"]
+    Text = ("Montant total : ")
+    Alignment = Align.Right
+  }
+  { Nb2 Label
+    MoveScaled(14,42,14,4)
+    Font = Font["Serif,Bold,Italic"]
+    Text = ("0,00")
+    Alignment = Align.Left
+  }
+  { Label1 Label
+    MoveScaled(2,42,12,4)
+    Font = Font["Serif,Bold,Italic"]
+    Text = ("Total LCR : ")
+    Alignment = Align.Right
+  }
+  { Button1 Button
+    MoveScaled(1,79,4,4)
+    Background = Color.ButtonBackground
+    ToolTip = ("Doc HTML")
+    Picture = Picture["Icones/khelp.png"]
+  }
+  { Button2 Button
+    MoveScaled(37,79,17,4)
+    Font = Font["Bold,-1"]
+    Background = Color.ButtonBackground
+    Drop = True
+    Text = Shortcut(("Supprimer"), "S")
+    Picture = Picture["Icones/stock_trash_24.png"]
+  }
+  { Button3 Button
+    MoveScaled(72.2857,79,18,4)
+    Font = Font["Bold,-1"]
+    Background = Color.ButtonBackground
+    Drop = True
+    Text = Shortcut(("Enregistrer"), "E")
+    Picture = Picture["Icones/filesave.png"]
+  }
+  { Button4 Button
+    MoveScaled(91,79,14,4)
+    Font = Font["Bold,-1"]
+    Background = Color.ButtonBackground
+    Drop = True
+    Text = Shortcut(("Quitter"), "Q")
+    Picture = Picture["Icones/exit.png"]
+  }
+  { ColLcr GridView
+    MoveScaled(1,6,104,36)
+    Font = Font["-2"]
+    Background = Color.TextBackground
+    Mode = Select.Single
+    Header = GridView.Horizontal
+    ScrollBar = Scroll.Vertical
+    Resizable = False
+  }
+  { TabStrip1 TabStrip
+    MoveScaled(1,46,104,32)
+    Font = Font["Serif,Bold,Italic"]
+    Background = Color.Background
+    Index = 0
+    Text = ("LCR")
+    { TextLabel2 TextLabel
+      MoveScaled(1,2,17,3)
+      Font = Font["-1"]
+      Text = ("Client")
+      Alignment = Align.Center
+    }
+    { Code TextBox Cmpt
+      Name = "Code"
+      MoveScaled(1,5,17,3.4286)
+      Font = Font["Serif"]
+      Background = Color.TextBackground
+      Tag = "1"
+      ReadOnly = True
+      MaxLength = 8
+    }
+    { TextLabel1 TextLabel
+      MoveScaled(30,2,51,3)
+      Font = Font["Serif"]
+      Text = ("Nom")
+      Alignment = Align.Center
+    }
+    { Nom TextBox Cmpt
+      Name = "Nom"
+      MoveScaled(28,5,55,3.4286)
+      Font = Font["Serif"]
+      Background = Color.TextBackground
+      Tag = "2"
+      ReadOnly = True
+      MaxLength = 35
+    }
+    { TextLabel3 TextLabel
+      MoveScaled(1,9,17,3)
+      Font = Font["Serif"]
+      Text = ("Date facture")
+      Alignment = Align.Center
+    }
+    { date TextBox Cmpt
+      Name = "date"
+      MoveScaled(1,12,17,3.4286)
+      Font = Font["Serif"]
+      Background = Color.TextBackground
+      Tag = "3"
+      Alignment = Align.Center
+      ReadOnly = True
+      MaxLength = 10
+    }
+    { TextLabel4 TextLabel
+      MoveScaled(28,9,17,3)
+      Font = Font["Serif"]
+      Text = ("Date échéance")
+      Alignment = Align.Center
+    }
+    { datee TextBox Cmpt
+      Name = "datee"
+      MoveScaled(28,12,17,3.4286)
+      Font = Font["Serif"]
+      Background = Color.TextBackground
+      Tag = "5"
+      Alignment = Align.Center
+      ReadOnly = True
+      MaxLength = 10
+    }
+    { TextLabel10 TextLabel
+      MoveScaled(54,9,17,3)
+      Font = Font["Serif"]
+      Text = ("Numéro facture")
+      Alignment = Align.Center
+    }
+    { Numfac TextBox Cmpt
+      Name = "Numfac"
+      MoveScaled(54,12,17,3.4286)
+      Font = Font["Serif"]
+      Background = Color.TextBackground
+      Tag = "5"
+      Alignment = Align.Center
+      ReadOnly = True
+      MaxLength = 12
+    }
+    { TextLabel11 TextLabel
+      MoveScaled(81,9,17,3)
+      Font = Font["Serif"]
+      Text = ("Montant")
+      Alignment = Align.Center
+    }
+    { Montant TextBox Cmpt
+      Name = "Montant"
+      MoveScaled(81,12,17,3.4286)
+      Font = Font["Serif"]
+      Background = Color.TextBackground
+      Tag = "6"
+      Alignment = Align.Center
+      ReadOnly = True
+      MaxLength = 12
+    }
+    { Crej CheckBox
+      MoveScaled(1,18.5714,22,4)
+      Font = Font["Serif"]
+      Text = ("Ecartée")
+    }
+    { Button7 Button
+      MoveScaled(18,4.4286,4,4)
+      Visible = False
+      ToolTip = ("Cliquer pour recuperer votre compte.")
+      Picture = Picture["Icones/next_frame.png"]
+    }
+    { Button6 Button
+      MoveScaled(18,11.5714,4,4)
+      Visible = False
+      ToolTip = ("Cliquer pour recuperer votre compte.")
+      Picture = Picture["Icones/next_frame.png"]
+    }
+    { Button8 Button
+      MoveScaled(45,11.5714,4,4)
+      Visible = False
+      ToolTip = ("Cliquer pour recuperer votre compte.")
+      Picture = Picture["Icones/next_frame.png"]
+    }
+    { BQ2 ComboBox
+      MoveScaled(54,18,44,3.4286)
+    }
+    { TextLabel5 TextLabel
+      MoveScaled(29,18,24,4)
+      Font = Font["Serif"]
+      Text = ("Affectation banque")
+      Alignment = Align.Right
+    }
+    Index = 0
+  }
+  { HBox1 HBox
+    MoveScaled(1,4,103.7143,4)
+    Font = Font["Serif"]
+    { CO TextBox
+      MoveScaled(1,0,10,4)
+      Font = Font["Serif,-1"]
+      Background = Color.TextBackground
+      ToolTip = ("Un double clic sur la zone inverse l'ordre de tri.")
+      Alignment = Align.Center
+    }
+    { Inte TextBox
+      MoveScaled(10,0,23,4)
+      Font = Font["Serif,-1"]
+      Background = Color.TextBackground
+      Tag = "2"
+      ToolTip = ("Un double clic sur la zone inverse l'ordre de tri.")
+      Alignment = Align.Center
+    }
+    { DA TextBox
+      MoveScaled(33,0,10,4)
+      Font = Font["Serif,-1"]
+      Background = Color.TextBackground
+      Tag = "4"
+      ToolTip = ("Un double clic sur la zone inverse l'ordre de tri.")
+      Alignment = Align.Center
+    }
+    { DAE TextBox
+      MoveScaled(43,0,10,4)
+      Font = Font["Serif,-1"]
+      Background = Color.TextBackground
+      Tag = "4"
+      ToolTip = ("Un double clic sur la zone inverse l'ordre de tri.")
+      Alignment = Align.Center
+    }
+    { NUM TextBox
+      MoveScaled(53,0,11,4)
+      Font = Font["Serif,-1"]
+      Background = Color.TextBackground
+      Tag = "5"
+      ToolTip = ("Un double clic sur la zone inverse l'ordre de tri.")
+      Alignment = Align.Center
+    }
+    { MNT TextBox
+      MoveScaled(64,0,11,4)
+      Font = Font["Serif,-1"]
+      Background = Color.TextBackground
+      Tag = "6"
+      ToolTip = ("Un double clic sur la zone inverse l'ordre de tri.")
+      Alignment = Align.Center
+    }
+    { BAQ TextBox
+      MoveScaled(75,0,20,4)
+      Font = Font["Serif,-1"]
+      Background = Color.TextBackground
+      Tag = "7"
+      ToolTip = ("Un double clic sur la zone inverse l'ordre de tri.")
+      Alignment = Align.Center
+    }
+    { ACC TextBox
+      MoveScaled(95,0,8.5714,4)
+      Font = Font["Serif,-1"]
+      Background = Color.TextBackground
+      Tag = "8"
+      ToolTip = ("Un double clic sur la zone inverse l'ordre de tri.")
+      Alignment = Align.Center
+    }
+  }
+  { Dsg1 TextLabel Dsg
+    Name = "Dsg1"
+    MoveScaled(0,0,3,3)
+    Visible = False
+    Tag = "1"
+  }
+  { DateChooser1 DateChooser
+    MoveScaled(16,36,40,25)
+    Visible = False
+    Font = Font["-1"]
+    Background = Color.SelectedBackground
+  }
+  { N RadioButton
+    MoveScaled(2,1,25,3)
+    Text = ("Non attribuées")
+    Value = True
+  }
+  { A RadioButton
+    MoveScaled(42,0.7143,22,3)
+    Text = ("Attribuées")
+  }
+  { Button9 Button
+    MoveScaled(55,79,16,4)
+    Font = Font["Bold,-1"]
+    Background = Color.ButtonBackground
+    ToolTip = ("Imprime le listing des traites.")
+    Drop = True
+    Text = Shortcut(("Imprimer"), "I")
+    Picture = Picture["Icones/frameprint.png"]
+  }
+  { Button10 Button
+    MoveScaled(21,79,15,4)
+    Font = Font["Bold,-1"]
+    Background = Color.ButtonBackground
+    ToolTip = ("Attribue la banque sélectionnée pour toutes les LCR.")
+    Drop = True
+    Text = Shortcut(("Attribution"), "A")
+    Picture = Picture["Icones/charset.png"]
+  }
+  { BQ ComboBox
+    MoveScaled(64,0.4286,40,3.4286)
+    Font = Font["-1"]
+  }
+}

@@ -1,0 +1,133 @@
+' Gambas class file
+
+'----------------------------------------------------------------------------
+'
+
+'
+'Ce programme est un logiciel libre; Vous pouvez le redistribuer et/ou
+'le modifier selon les termes de la GNU General PUBLIC License publiés par
+'la Free Software Foundation.
+
+'Ce programme est distribué sans garantie. Voyez la GNU General PUBLIC
+'License pour plus de details.
+
+'Vous devez lire la GNU General PUBLIC Licence.
+'Si vous ne disposez pas d'un exemplaire, veuillez écrire
+'à  " The Free Software Foundation
+'INC, 59 Temple place - Suite 33, Boston
+'MA 02111-1307 USA
+'----------------------------------------------------------------------------
+'################################################
+'# nom du fichier           : Fsoc.class
+'# Auteur                   : Jacky Tripoteau
+'# date de création         : 24/107/2011
+'# Gestion de la table des societés pour les LCR
+'################################################
+'
+
+Tab As String
+n As Integer
+s As Integer
+Hfile As File
+son As Integer = Start.Son
+
+Public Sub _New()
+
+  Dim rResult As Result
+  Dim Tab As String
+  Dim Frmt As New String[]
+
+  Frmt = Utils.FColr(Settings["/Coul/Fnets"])
+  If Settings["/Soc" & FLcr.soc & "/Coul_fen"] = 0 Then Me.Background = Val(Frmt[0])
+  Fsoc.text = "Lcr" & " ( Société  " " " & Right$(FLcr.Soc, 2) & " - " & FLcr.IntSoc & ") "
+  Utils.Observers(Me)
+  Utils.Observers(Hbox1)
+  Music.Load(Start.Musique)
+  Me.Center
+  Soclist.Columns.count = 2
+  Soclist.Columns[0].Width = 65
+  Soclist.Columns[1].Width = 180
+  Soclist.Columns[0].Text = "code"
+  Soclist.Columns[1].Text = "intitule"
+
+End
+
+Public Sub Form_Open()
+
+  Dim rResult As Result
+  Dim elements As Variant
+  Dim Lig As String
+
+  If Not Error Then
+    For Each elements In Utils.db.Databases
+      Lig = elements.name
+      If Left$(Lig, 6) = "Laurux" Then
+        If Len(lig) > 6 Then
+          Tab = Lig & "." & "Fiches_Societes"
+          Try rResult = Utils.db.Exec("Select * From  " & Tab & " where cd_sc = &1", Right$(Lig, Len(Lig) - 6))
+          Try Soclist.Add(rResult!cd_sc, rResult!cd_sc)
+          If Not Error Then
+            Soclist.Item[0] = rResult!cd_sc
+            Soclist.Item[1] = rResult!int_sc
+          Endif
+        Endif
+      Endif
+    Next
+  Endif
+Catch
+  message.Error(Error.Text & " " & Error.where)
+
+End
+
+Public Sub Refresh()
+
+  Soclist.clear()
+  Form_Open()
+
+End
+
+Public Sub Soclist_Click()
+
+  Settings["/dbase/Name"] = "Laurux" & Soclist.current[0]
+  Settings["/Lcr/Soc"] = Soclist.current[0]
+  Settings["/Lcr/intitule"] = Soclist.current[1]
+  FLcr.Soc = Soclist.current[0]
+  FLcr.IntSoc = Soclist.current[1]
+
+End
+
+Public Sub Button2_Click()
+
+  Dim rResult As Result
+  Dim tab As String
+
+  If FLcr.Soc And Not IsNull(ComboBox1.Text) Then
+    If son Then
+      Music.Play
+    Endif
+    message.Warning(" Vous venez de selectionner la société " & FLcr.Soc & " " & FLcr.IntSoc & " ! \n Celle-ci sera donc votre société de travail par défaut.")
+    Settings["/Soc" & FLcr.Soc & "/Prgmail"] = ComboBox1.text
+    Start.Soc = FLcr.Soc
+    Settings.Save
+    Utils.glb()
+    FLcr.text = "Lcr" & " ( Société  " " " & Right$(FLcr.Soc, 2) & " - " & FLcr.IntSoc & ") "
+  Else
+    If son Then
+      Music.Play
+    Endif
+    message.Warning(" Veuillez selectionner une société et un gestionnaire de courriel SVP")
+  Endif
+
+End
+
+Public Sub Button1_Click()
+
+  Visdoc.Web(Application.Path &/ "Ecrans/Societes.html")
+
+End
+
+Public Sub Button3_Click()
+
+  Me.close
+
+End

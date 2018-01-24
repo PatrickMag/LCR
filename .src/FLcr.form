@@ -1,0 +1,65 @@
+# Gambas Form File 3.0
+
+{ Form Form
+  MoveScaled(0,0,96,70)
+  Background = Color.Background
+  Text = ("Zenite.LCR")
+  Resizable = False
+  { Menu4 Menu
+    Text = Shortcut(("Environnement"), "E")
+    { Menu1 Menu
+      Text = Shortcut(("Société de travail"), "S")
+      Picture = Picture["Icones/Stock.png"]
+    }
+    { Menu3 Menu
+      Text = Shortcut(("Quitter Lcr"), "Q")
+      Picture = Picture["Icones/exit.png"]
+    }
+  }
+  { Menu2 Menu
+    Text = Shortcut(("?"), "?")
+    { Menu5 Menu
+      Text = ("Concernant les LCR")
+      Picture = Picture["Icones/tip1.png"]
+    }
+    { Menu6 Menu
+      Text = ("Documentation")
+      Picture = Picture["Icones/khelp.png"]
+    }
+  }
+  { Frame1 Frame
+    MoveScaled(9,4,77,55)
+    { Button1 Button
+      MoveScaled(18.5714,4,40,5)
+      Text = ("Table des banques")
+    }
+    { Button2 Button
+      MoveScaled(18.5714,12,40,5)
+      Text = ("Traitements des LCR non attribuées")
+    }
+    { Button5 Button
+      MoveScaled(18.5714,20,40,5)
+      Text = ("Attribution banques")
+    }
+    { Button6 Button
+      MoveScaled(18.5714,36,40,5)
+      Text = ("Gestion des bordereaux")
+    }
+    { Button7 Button
+      MoveScaled(18.5714,28,40,5)
+      Text = ("Préparation des bordereaux")
+    }
+    { Button4 Button
+      MoveScaled(62,50,14,4)
+      Font = Font["Serif,Bold"]
+      Background = Color.ButtonBackground
+      Drop = True
+      Text = Shortcut(("Quitter"), "Q")
+      Picture = Picture["Icones/exit.png"]
+    }
+    { Button3 Button
+      MoveScaled(19,44,40,5)
+      Text = ("Impression / suppression LCR")
+    }
+  }
+}
