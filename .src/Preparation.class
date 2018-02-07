@@ -321,7 +321,7 @@ Public Sub Tris()
   Dim rResult As Result
 
   With ColLcr
-    .Columns.count = 9
+    .Columns.count = 10
     .Columns[0].Width = CO.Width
     .Columns[1].Width = Inte.Width
     .Columns[2].Width = DA.Width
@@ -494,9 +494,17 @@ End
 
 Public Sub ColLcr_Click()
 
-  If Not IsNull(ColLcr[ColLcr.row, 0].Text)
-    CleanChamps
-    Maj_Zones()
+If Not Mouse.Right Then
+  CleanChamps
+  Maj_Zones()
+Else
+    If Not IsNull(ColLcr[ColLcr.row, 0].Text)
+  If ColLcr[ColLcr.row, 9].Text = "False" Then
+     ColLcr[ColLcr.row, 9].Text = "*"
+  Else
+     ColLcr[ColLcr.row, 9].Text = "False"
+  Endif
+  Endif
   Endif
 Catch
   code.setfocus
@@ -656,9 +664,18 @@ End
 Public Sub Button3_Click()
 
   Dim Bq3 As String = "0"
-
-  If Not IsNull(Left$(BQ2.text, 1)) Then Bq3 = Left$(BQ2.text, 1)
-  Utils.db.Exec("UPdate  " & Cbase.Table("TabLcr") & "  SET code = &1, nom = &2, date = &3, datech = &4, montant = &5, ecartee = &6, banque = &7, codeentree = &8 where lind = &9", Code.Text, Nom.Text, Utils.Cdate_Dbase(date.Text), Utils.Cdate_Dbase(datee.text), montant.Text, Utils.convBool(cRej.Value), BQ3, Left$(Entree2.Text, 1), iLind)
+Dim x As Integer = 0
+Dim sel As Boolean = False
+If Not IsNull(Left$(BQ2.text, 1)) Then Bq3 = Left$(BQ2.text, 1)
+For x = 0 To Enrg
+ColLcr.MoveTo(x, 0)
+  If ColLcr[ColLcr.row, 9].Text = "*" Then
+Utils.db.Exec("UPdate  " & Cbase.Table("TabLcr") & "  SET codeentree = &1 where lind = &2", Left$(Entree2.Text, 1), ColLcr[ColLcr.row, 8].Text)
+ColLcr[ColLcr.row, 9].Text = "False"
+sel = True
+  Endif
+  Next
+  If Not sel Then Utils.db.Exec("UPdate  " & Cbase.Table("TabLcr") & "  SET code = &1, nom = &2, date = &3, datech = &4, montant = &5, ecartee = &6, banque = &7, codeentree = &8 where lind = &9", Code.Text, Nom.Text, Utils.Cdate_Dbase(date.Text), Utils.Cdate_Dbase(datee.text), montant.Text, Utils.convBool(cRej.Value), BQ3, Left$(Entree2.Text, 1), iLind)
   CleanChamps()
   Refresh()
 
@@ -897,8 +914,8 @@ Public Sub Button13_Click()
     DateChooser2.Visible = False
   Else
     DateChooser2.Visible = True
+    DateChooser2.Move(248, 330)
   Endif
-
 End
 
 Public Sub Button14_Click()
@@ -908,8 +925,8 @@ Public Sub Button14_Click()
     DateChooser2.Visible = False
   Else
     DateChooser2.Visible = True
+    DateChooser2.Move(248, 330)
   Endif
-
 End
 
 Public Sub Button11_Click()
@@ -928,9 +945,8 @@ Public Sub Button15_Click()
     DateChooser2.Visible = False
   Else
     DateChooser2.Visible = True
-    DateChooser2.Move(296, 8)
+    DateChooser2.Move(Button15.x + Button15.w + 4, 252)
   Endif
-
 End
 
 Public Sub Button16_Click()
@@ -940,9 +956,8 @@ Public Sub Button16_Click()
     DateChooser2.Visible = False
   Else
     DateChooser2.Visible = True
-    DateChooser2.Move(296, 8)
+    DateChooser2.Move(Button16.x + Button16.w + 4, 252)
   Endif
-
 End
 
 Public Sub DateChooser2_Activate()

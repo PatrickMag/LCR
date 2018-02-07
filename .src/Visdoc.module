@@ -1,18 +1,10 @@
 ' Gambas module file
 
-PUBLIC SUB Web(chemin AS String)
+Public Sub Web(chemin As String)
 
-  DIM sExec AS String
-  sExec = Application.Env["BROWSER"]
-  IF NOT CheckProg.Chk(sExec) THEN sExec = "firefox"
-  IF NOT CheckProg.Chk(sExec) THEN sExec = "konqueror"
-  IF NOT CheckProg.Chk(sExec) THEN sExec = "mozilla-firefox"
-  IF NOT CheckProg.Chk(sExec) THEN sExec = "mozilla"
-  IF NOT CheckProg.Chk(sExec) THEN sExec = "opera"
-  IF NOT CheckProg.Chk(sExec) THEN RETURN
-  EXEC [sExec, chemin]
-CATCH
+  Exec ["xdg-open", chemin]
+Catch
   Message.Error(Error.Text)
   
-END
+End
 

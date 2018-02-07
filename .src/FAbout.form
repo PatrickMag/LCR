@@ -36,7 +36,7 @@
   { TextLabel7 TextLabel
     MoveScaled(12,39,34,4)
     Font = Font["Serif"]
-    Text = ("Contact : info@althae.fr")
+    Text = ("Contact : jscops@wanadoo.fr")
     Alignment = Align.Center
   }
   { PictureBox1 PictureBox
@@ -45,7 +45,7 @@
   }
   { Label2 Label
     MoveScaled(1,28,59,5)
-    Text = ("Distribué sous la licence GNU GPL3\n(c) 2015 Jacky Tripoteau")
+    Text = ("Distribué sous la licence GNU GPL3\n(c) 2018 Jacky Tripoteau")
     Alignment = Align.Center
   }
 }

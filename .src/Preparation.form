@@ -61,7 +61,7 @@
     MoveScaled(1,5,104,37.1429)
     Font = Font["-2"]
     Background = Color.TextBackground
-    Mode = Select.Single
+    Mode = Select.Multiple
     Header = GridView.Horizontal
     Resizable = False
   }
@@ -310,10 +310,10 @@
     Picture = Picture["Icones/charset.png"]
   }
   { BQ ComboBox
-    MoveScaled(15,0.5714,34,3.4286)
+    MoveScaled(15,0.5714,34,2.8571)
   }
   { Entree ComboBox
-    MoveScaled(63,0.5714,42,3.4286)
+    MoveScaled(63,0.5714,42,2.8571)
     List = [(""), ("1- Escompte"), ("2- Escompte en valeur"), ("3- Encaissement crédit forfaitaire"), ("4- Encaissement crédit après échéance"), ("5- Cession escompte (Loi Dailly)")]
   }
   { Label2 Label
@@ -414,7 +414,7 @@
       MaxLength = 10
     }
     { Button15 Button
-      MoveScaled(33.5714,5.5714,4,4)
+      MoveScaled(34,6,4,4)
       ToolTip = ("Cliquer pour recuperer votre compte.")
       Picture = Picture["Icones/next_frame.png"]
     }
@@ -449,10 +449,10 @@
       ToolTip = ("Cliquer pour recuperer votre compte.")
       Picture = Picture["Icones/next_frame.png"]
     }
-    { DateChooser2 DateChooser
-      MoveScaled(30,3,38,26)
-      Visible = False
-      Background = Color.SelectedBackground
-    }
+  }
+  { DateChooser2 DateChooser
+    MoveScaled(35.4286,50,38,26)
+    Visible = False
+    Background = Color.SelectedBackground
   }
 }
