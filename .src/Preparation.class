@@ -234,7 +234,7 @@ Public Sub MNT_GotFocus()
   MNT.Background = Coulfc
   sel = ""
   sDate = False
-  Tri = "montant"
+  Tri = "CAST(montant As DECIMAL(12, 2))"
   Tris()
   Deb2()
 
@@ -313,7 +313,6 @@ Public Sub ColLcr_Data(Row As Integer, Column As Integer)
     Endif
     If column = 7 Then ColLcr.Data.Alignment = 3
   End With
-
 End
 
 Public Sub Tris()
@@ -330,6 +329,7 @@ Public Sub Tris()
     .Columns[5].Width = MNT.Width
     .Columns[6].Width = BAQ.Width
     .Columns[7].Width = ACC.Width
+    .Columns[8].Width = 1
   End With
 
 End
@@ -979,3 +979,4 @@ Public Sub DateChooser2_Activate()
   DateChooser2.Visible = False
 
 End
+

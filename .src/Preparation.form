@@ -1,7 +1,7 @@
 # Gambas Form File 3.0
 
 { Form Form
-  MoveScaled(0,0,106,84)
+  MoveScaled(0,0,114,84)
   Text = ("Préparation des bordereaux")
   { Mt2 Label
     MoveScaled(51,42,16,4)
@@ -58,7 +58,7 @@
     Picture = Picture["Icones/exit.png"]
   }
   { ColLcr GridView
-    MoveScaled(1,5,104,37.1429)
+    MoveScaled(1,5,111,37)
     Font = Font["-2"]
     Background = Color.TextBackground
     Mode = Select.Multiple
@@ -214,17 +214,17 @@
     Index = 0
   }
   { HBox1 HBox
-    MoveScaled(1,4,103.7143,3.4286)
+    MoveScaled(1,4,108,3)
     Font = Font["Serif"]
     { CO TextBox
-      MoveScaled(4,0,10,3.4286)
+      MoveScaled(4,0,10,2.8571)
       Font = Font["Serif,-1"]
       Background = Color.TextBackground
       ToolTip = ("Cliquer sur la colonne pour faire un tri")
       Alignment = Align.Center
     }
     { Inte TextBox
-      MoveScaled(13,0,23,3.4286)
+      MoveScaled(13,0,23,2.8571)
       Font = Font["Serif,-1"]
       Background = Color.TextBackground
       Tag = "2"
@@ -232,7 +232,7 @@
       Alignment = Align.Center
     }
     { DA TextBox
-      MoveScaled(36,0,10,3.4286)
+      MoveScaled(36,0,10,2.8571)
       Font = Font["Serif,-1"]
       Background = Color.TextBackground
       Tag = "4"
@@ -240,7 +240,7 @@
       Alignment = Align.Center
     }
     { DAE TextBox
-      MoveScaled(46,0,10,3.4286)
+      MoveScaled(46,0,10,2.8571)
       Font = Font["Serif,-1"]
       Background = Color.TextBackground
       Tag = "4"
@@ -248,7 +248,7 @@
       Alignment = Align.Center
     }
     { NUM TextBox
-      MoveScaled(56,0,11,3.4286)
+      MoveScaled(56,0,11,2.8571)
       Font = Font["Serif,-1"]
       Background = Color.TextBackground
       Tag = "5"
@@ -256,7 +256,7 @@
       Alignment = Align.Center
     }
     { MNT TextBox
-      MoveScaled(67,0,11,3.4286)
+      MoveScaled(67,0,11,2.8571)
       Font = Font["Serif,-1"]
       Background = Color.TextBackground
       Tag = "6"
@@ -264,7 +264,7 @@
       Alignment = Align.Center
     }
     { BAQ TextBox
-      MoveScaled(78,0,20,3.4286)
+      MoveScaled(74,0,22,3)
       Font = Font["Serif,-1"]
       Background = Color.TextBackground
       Tag = "7"
@@ -272,7 +272,7 @@
       Alignment = Align.Center
     }
     { ACC TextBox
-      MoveScaled(98,0,8.5714,3.4286)
+      MoveScaled(95,0,8.5714,2.8571)
       Font = Font["Serif,-1"]
       Background = Color.TextBackground
       Tag = "8"
