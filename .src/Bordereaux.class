@@ -453,9 +453,17 @@ Public Sub Button3_Click()
       ColLcr.Item.Selected = True
       rCli = Utils.db.Exec("SELECT * FROM " & Cbase.Table("TabCli") & " where cli_code = &1", ColLcr.Item[0])
       Reftire = rCli!cli_ref_tir & String$(10 - Len(rCli!cli_ref_tir), " ")
+      If Len(rCli!cli_nom) <= 24 Then
       Nmtire = rCli!cli_nom & String$(24 - Len(rCli!cli_nom), " ")
+      Else
+        Nmtire = Left$(rCli!cli_nom, 24)
+      Endif
       Nmtire = Upper$(Utils.Replace(Nmtire))
+      If Len(rCli!cli_dmln) <= 24 Then
       dmlntire = rCli!cli_dmln & String$(24 - Len(rCli!cli_dmln), " ")
+      Else
+        dmlntire = Left$(rCli!cli_dmln, 24)
+      Endif
       dmlntire = Upper$(Utils.Replace(dmlntire))
       cdacc = ColLcr.Item[6]
       If IsNull(cdacc) Then cdacc = "0"
