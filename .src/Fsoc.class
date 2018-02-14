@@ -93,6 +93,7 @@ Public Sub Soclist_Click()
   Settings["/Lcr/intitule"] = Soclist.current[1]
   FLcr.Soc = Soclist.current[0]
   FLcr.IntSoc = Soclist.current[1]
+  ComboBox1.text = Settings["/Soc" & FLcr.Soc & "/Prgmail"]
 
 End
 
