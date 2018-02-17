@@ -362,7 +362,7 @@ Public Sub Gen_Bordereau(Org As String)
         pdf.Entete(Type)
         posx = 40
         posy = 16
-        pdf.Level1B()
+        pdf.Level1B(Resoc, "Emetteur " & Emetteur, Resoc & Dombq, CodeBanque, cguichet, Numcompte, "Référence remise : " & reference, "Code entrée : ", Posy)
         posy += 44
       Endif
       Inc iLcr
@@ -425,7 +425,7 @@ Public Sub Button3_Click()
   Dim spiece As String
   Dim spiece2 As String
 
-If Not IsNull(Settings["/Soc" & FLcr.Soc & "/Prgmail"]) Then
+If Not IsNull(Settings["/Soc" & Start.Soc & "/Prgmail"]) Then
   If ColLcr.Count > 0 Then
     Dateremise = Left$(ColBrd[ColBrd.row, 3].Text, 2) & Mid$(ColBrd[ColBrd.row, 3].Text, 4, 2) & Right$(ColBrd[ColBrd.row, 3].Text, 2)
     Datevaleur = Left$(ColBrd[ColBrd.row, 5].Text, 2) & Mid$(ColBrd[ColBrd.row, 5].Text, 4, 2) & Right$(ColBrd[ColBrd.row, 5].Text, 2)

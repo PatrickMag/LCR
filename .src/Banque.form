@@ -229,7 +229,7 @@
       Font = Font["Serif"]
       Background = Color.TextBackground
       Tag = "9"
-      ToolTip = ("Référence remise par défaut")
+      ToolTip = ("Référence du tireur")
       Alignment = Align.Center
       MaxLength = 10
     }
