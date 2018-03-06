@@ -107,7 +107,7 @@ Public Sub Button2_Click()
     If son Then
       Music.Play
     Endif
-    message.Warning(" Vous venez de selectionner la société " & FLcr.Soc & " " & FLcr.IntSoc & " ! \n Celle-ci sera donc votre société de travail par défaut.")
+    message.Warning(" Vous venez de selectionner la société " & FLcr.Soc & " " & FLcr.IntSoc & " ! \n Celle-ci sera donc votre société de travail par défaut\n Redémarrez le programme SVP")
     Settings["/Soc" & FLcr.Soc & "/Prgmail"] = ComboBox1.text
     Settings["/Soc"] = FLcr.Soc
     Settings["/Soc" & FLcr.Soc & "/Fichiers"] = Chemin.Text
@@ -115,6 +115,7 @@ Public Sub Button2_Click()
     Settings.Save
     Utils.glb()
     FLcr.text = "Lcr" & " ( Société  " " " & Right$(FLcr.Soc, 2) & " - " & FLcr.IntSoc & ") "
+    Quit
   Else
     If son Then
       Music.Play
