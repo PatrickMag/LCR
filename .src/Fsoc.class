@@ -94,6 +94,7 @@ Public Sub Soclist_Click()
   FLcr.Soc = Soclist.current[0]
   FLcr.IntSoc = Soclist.current[1]
   ComboBox1.text = Settings["/Soc" & FLcr.Soc & "/Prgmail"]
+  Chemin.Text = Settings["/Soc" & FLcr.Soc & "/Fichiers"]
 
 End
 
@@ -108,6 +109,8 @@ Public Sub Button2_Click()
     Endif
     message.Warning(" Vous venez de selectionner la société " & FLcr.Soc & " " & FLcr.IntSoc & " ! \n Celle-ci sera donc votre société de travail par défaut.")
     Settings["/Soc" & FLcr.Soc & "/Prgmail"] = ComboBox1.text
+    Settings["/Soc"] = FLcr.Soc
+    Settings["/Soc" & FLcr.Soc & "/Fichiers"] = Chemin.Text
     Start.Soc = FLcr.Soc
     Settings.Save
     Utils.glb()
@@ -130,5 +133,17 @@ End
 Public Sub Button3_Click()
 
   Me.close
+
+End
+
+Public Sub Bchemin_Click()
+
+  Dialog.Title = "Choisir un repertoire"
+  Dialog.Path = User.Home
+  If Not Dialog.SelectDirectory() Then
+    Chemin.Text = Dialog.Path
+  Else
+    Chemin.Text = User.Home
+  Endif
 
 End

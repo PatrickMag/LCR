@@ -1,7 +1,7 @@
 # Gambas Form File 3.0
 
 { Form Form
-  MoveScaled(47.1429,11,80,63)
+  MoveScaled(47.1429,11,80,75)
   Background = Color.Background
   Text = ("Table des sociétés")
   Resizable = False
@@ -12,7 +12,7 @@
     ScrollBar = Scroll.Vertical
   }
   { HBox1 HBox
-    MoveScaled(13,55,52,4)
+    MoveScaled(12,68,52,4)
     Spacing = True
     { Button1 Button
       MoveScaled(1,0,4,4)
@@ -36,7 +36,7 @@
     }
   }
   { ComboBox1 ComboBox
-    MoveScaled(29,43,33,4)
+    MoveScaled(29,43.7143,33,3)
     Font = Font["-1"]
     ToolTip = ("Le gestionnaire de courriel qui sera lancé pour l'envoi des bordereaux")
     List = [("Thunderbird"), ("Icedove"), ("Evolution"), ("Kmail")]
@@ -45,5 +45,17 @@
     MoveScaled(4,43,25,4)
     Text = ("Gestionnaire de courriel")
     Alignment = Align.Left
+  }
+  { Label18 Label
+    MoveScaled(3,50,59,3)
+    Text = ("Nom et chemin du lieu de stockage des fichiers LCR")
+    Alignment = Align.Center
+  }
+  { Chemin TextBox
+    MoveScaled(15,54,28,3)
+  }
+  { Bchemin Button
+    MoveScaled(43,54,10,3)
+    Text = Shortcut(("Choisir"), "C")
   }
 }

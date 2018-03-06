@@ -69,7 +69,7 @@ Public Sub _New()
   Coulfc = Val(Frmt[0])
   Frmt = Utils.FColr(Settings["/Coul/Fnets"])
   Utils.Observers(Me)
-  If Settings["/Soc" & FLcr.soc & "/Coul_fen"] = 0 Then Me.Background = Val(Frmt[0])
+  If Settings["/Soc" & Start.Soc & "/Coul_fen"] = 0 Then Me.Background = Val(Frmt[0])
   Music.Load(Start.Musique)
   Me.Center
   Entete()
@@ -320,10 +320,10 @@ Public Sub Gen_Bordereau(Org As String)
   Type = "Bordereau de remise de LCR magnétiques du " & Format$(Now, "dd-mm-yyyy")
   Coulfond = Utils.Coulfd()
   PosY = 100
-  Try filename2 = User.home & "/Bordereau" & ColBrd[ColBrd.row, 0].Text & ".pdf "
+  Try filename2 = Settings["/Soc" & Start.Soc & "/Fichiers"] & "/Bordereau" & ColBrd[ColBrd.row, 0].Text & ".pdf "
   If Not Error Then
-    Shell "cd " & User.Home & ""
-    Filename = User.home & "/Lcr.pdf"
+    Shell "cd " & Settings["/Soc" & Start.Soc & "/Fichiers"] & ""
+    Filename = Settings["/Soc" & Start.Soc & "/Fichiers"] & "/Lcr" & Start.Soc & ".pdf"
     pdf = New CLcr("Portrait", "mm", "A4")
     pdf.Open()
     pdf.AliasNbPages()
@@ -378,7 +378,7 @@ Public Sub Gen_Bordereau(Org As String)
     If org = "1" Then
       Visualiseur.Prog_Editeur(Filename)
     Else
-      Impression.Prog_Editeur(User.home & "/Lcr.pdf")
+      Impression.Prog_Editeur(Settings["/Soc" & Start.Soc & "/Fichiers"] & "/Lcr" & Start.Soc & ".pdf")
     Endif
   Endif
 
@@ -446,7 +446,7 @@ If Not IsNull(Settings["/Soc" & Start.Soc & "/Prgmail"]) Then
       sCourriel = rBq!banques_mail
       If rBq!banques_fenrg <> fin Then fin = ""
     Endif
-    HFile = Open User.home & "/LCR" & FLcr.Soc & Left$(ColBrd[ColBrd.row, 1].Text, 1) For Write Create
+    HFile = Open Settings["/Soc" & Start.Soc & "/Fichiers"] & "/LCR" & Start.Soc & Left$(ColBrd[ColBrd.row, 1].Text, 1) For Write Create
     Print #HFile, "0360" & Format$(Numero, "00000000") & Emetteur & String$(6, " ") & Dateremise & Resoc & Dombq & Left$(ColBrd[ColBrd.row, 2].Text, 1) & String$(1, " ") & "E" & CodeBanque & cguichet & Numcompte & String$(16, " ") & Datevaleur & String$(10, " ") & Numsiren & String$(10, " ") & reference & fin
     Inc numero
     ColLcr.MoveFirst()
@@ -493,11 +493,11 @@ If Not IsNull(Settings["/Soc" & Start.Soc & "/Prgmail"]) Then
     Utils.db.Exec("UPdate  " & Cbase.Table("TabBordereaux") & "  SET  etat = &2 where bordereau = &1", ColBrd[ColBrd.row, 0].Text, True)
     sText = "Bordereau de remise de LCR."
     Stext2 = "Bonjour,\nVeuillez trouver ci-joint notre bordereau de remise de LCR n° " & ColBrd[ColBrd.row, 0].Text & ".\nCordialement."
-    sPiece2 = User.home & "/LCR" & FLcr.Soc & Left$(ColBrd[ColBrd.row, 1].Text, 1)
+    sPiece2 = Settings["/Soc" & Start.Soc & "/Fichiers"] & "/LCR" & Start.Soc & Left$(ColBrd[ColBrd.row, 1].Text, 1)
     If Not IsNull(sCourriel) Then
       Me.mouse = Mouse.Wait
       Gen_Bordereau(2)
-      sPiece = User.Home & "/Lcr.pdf"
+      sPiece = Settings["/Soc" & Start.Soc & "/Fichiers"] & "/Lcr" & Start.soc & ".pdf"
       EnvMail.Envoi(scourriel, stext, sText2, spiece, spiece2)
       'Exec ["xdg-email", "--attach", sPiece, "--attach", sPiece2, "--subject", sText, "--body", sText2, sCourriel]
       Me.mouse = Mouse.Default
