@@ -398,7 +398,7 @@ Public Sub Button3_Click()
   Dim Cguichet As String
   Dim Numcompte As String
   Dim Numsiren As String
-  Dim fin As String = "$0D0A$"
+  Dim fin As String
   Dim reftire As String
   Dim nmtire As String
   Dim dmlntire As String
@@ -424,6 +424,8 @@ Public Sub Button3_Click()
   Dim TxtMail As String
   Dim spiece As String
   Dim spiece2 As String
+  Dim adrimp As Boolean
+  Dim cdent As String
 
 If Not IsNull(Settings["/Soc" & Start.Soc & "/Prgmail"]) Then
   If ColLcr.Count > 0 Then
@@ -444,10 +446,20 @@ If Not IsNull(Settings["/Soc" & Start.Soc & "/Prgmail"]) Then
       reftireur = rBq!banques_reftireur & String$(10 - Len(rBq!banques_reftireur), " ")
       Numcompte = rBq!banques_numcpt & String$(11 - Len(rBq!banques_numcpt), " ")
       sCourriel = rBq!banques_mail
-      If rBq!banques_fenrg <> fin Then fin = ""
+      fin = rBq!banques_fenrg 
+      cdent = Left$(ColBrd[ColBrd.row, 2].Text, 1)
+      If rbq!banques_adr = "O" Or (rbq!banques_adr = "C" And Val(cdent) > 4) Then adrimp = True
     Endif
     HFile = Open Settings["/Soc" & Start.Soc & "/Fichiers"] & "/LCR" & Start.Soc & Left$(ColBrd[ColBrd.row, 1].Text, 1) For Write Create
-    Print #HFile, "0360" & Format$(Numero, "00000000") & Emetteur & String$(6, " ") & Dateremise & Resoc & Dombq & Left$(ColBrd[ColBrd.row, 2].Text, 1) & String$(1, " ") & "E" & CodeBanque & cguichet & Numcompte & String$(16, " ") & Datevaleur & String$(10, " ") & Numsiren & String$(10, " ") & reference & fin
+    If fin Then
+      If fin = "Ws" Then
+        hfile.EndOfLine = gb.Windows
+        fin = ""
+      Else
+        fin = " " & fin
+      Endif
+    Endif
+    Print #HFile, "0360" & Format$(Numero, "00000000") & Emetteur & String$(6, " ") & Dateremise & Resoc & Dombq & cdent & String$(1, " ") & "E" & CodeBanque & cguichet & Numcompte & String$(16, " ") & Datevaleur & String$(10, " ") & Numsiren & String$(10, " ") & reference & fin
     Inc numero
     ColLcr.MoveFirst()
     Repeat
@@ -475,17 +487,20 @@ If Not IsNull(Settings["/Soc" & Start.Soc & "/Prgmail"]) Then
       montant = Format$(Val(montant) * 100, "000000000000")
       datech = Left$(ColLcr.Item[3], 2) & Mid$(ColLcr.Item[3], 4, 2) & Right$(ColLcr.Item[3], 2)
       datecreation = Left$(ColLcr.Item[2], 2) & Mid$(ColLcr.Item[2], 4, 2) & Right$(ColLcr.Item[2], 2)
-      Print #HFile, "0660" & Format$(Numero, "00000000") & String$(8, " ") & reftire & nmtire & dmlntire & cdacc & String$(2, " ") & cdbanque & cdguichet & numcpt & montant & String$(4, " ") & datech & datecreation & String$(20, " ") & reftireur & " " & fin
+      If reftireur = Space(10) And ColLcr.Item[4] Then reftireur = ColLcr.Item[4]
+      Print #HFile, "0660" & Format$(Numero, "00000000") & Emetteur & String$(2, " ") & reftire & nmtire & dmlntire & cdacc & String$(2, " ") & cdbanque & cdguichet & numcpt & montant & String$(4, " ") & datech & datecreation & String$(20, " ") & reftireur & fin
       Inc numero
-      adresse1 = rCli!cli_adr1 & String$(32 - Len(rCli!cli_adr1), " ")
-      adresse1 = Upper$(Utils.Replace(adresse1))
-      adresse2 = rCli!cli_adr2 & String$(32 - Len(rCli!cli_adr2), " ")
-      adresse2 = Upper$(Utils.Replace(adresse2))
-      cp = rCli!cli_cd_ptl & rCli!cli_ville
-      cp = Upper$(Utils.Replace(cp))
-      cp = cp & String$(32 - Len(cp), " ")
-      Print #HFile, "1660" & Format$(Numero, "00000000") & String$(6, " ") & adresse1 & adresse2 & cp & String$(46, " ") & fin
-      Inc numero
+      If adrimp Then
+        adresse1 = rCli!cli_adr1 & String$(32 - Len(rCli!cli_adr1), " ")
+        adresse1 = Upper$(Utils.Replace(adresse1))
+        adresse2 = rCli!cli_adr2 & String$(32 - Len(rCli!cli_adr2), " ")
+        adresse2 = Upper$(Utils.Replace(adresse2))
+        cp = rCli!cli_cd_ptl & rCli!cli_ville
+        cp = Upper$(Utils.Replace(cp))
+        cp = cp & String$(32 - Len(cp), " ")
+        Print #HFile, "1660" & Format$(Numero, "00000000") & String$(6, " ") & adresse1 & adresse2 & cp & String$(46, " ") & fin
+        Inc numero
+      Endif
       Total = Val(Total) + Val(montant)
     Until ColLcr.MoveNext()
     Print #HFile, "0860" & Format$(Numero, "00000000") & String$(90, " ") & Format$(Total, "000000000000") & String$(46, " ") & fin
