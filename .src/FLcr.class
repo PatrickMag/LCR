@@ -24,6 +24,11 @@ Public Sub form_Open()
 
 End
 
+Public Sub Form_Close()
+
+  Try Kill User.home & "/Lcr.lock"
+
+End
 Public Sub preferences()
 
   Settings.Save
